@@ -1,12 +1,12 @@
 ---
-layout: default
+layout: post
 title: Notes on Simulated Annealing
 category: Artificial-Intelligence
 ---
 
 ## Metropolis algorithm for simulating the evolution of a solid in a heat bath to thermal equilibrium
 
-The algorithm samples a state space by perturbating current _i_ and transtioning to the perturbed state _j_ with prob = 1 if the energy of the state is lower or with prob = $\text{exp}(\frac{E_i - E_j}{k_BT})$ otherwise.
+The algorithm samples a state space by perturbating current _i_ and transtioning to the perturbed state _j_ with prob = 1 if the energy of the state is lower or with prob = $$\text{exp}(\frac{E_i - E_j}{k_BT})$$ otherwise.
 
 If you sample long enough the probability distribution of visiting every state approaches the _Boltzmann distribution_:
 
@@ -140,9 +140,9 @@ $$
 
 <span class="marginnote">Basically the 2.5 collapses into a uniform dist of optimal solutions -- system can only be at one of those optimal states</span>
 
-where $S_{opt}$ denotes the set of globally optimal solutions. Let A and $A \subset A'$ be two sets. Then the characteristic function $\chi(A'):A \rightarrow \{0, 1\}$ of the set $A'$ if defined as $\chi_{A'}(a) = 1$ if $a \in A'$ and $\chi_(A')(a) = 0$ otherwise.
+where $$S_{opt}$$ denotes the set of globally optimal solutions. Let A and $$A \subset A'$$ be two sets. Then the characteristic function $$\chi(A'):A \rightarrow \{0, 1\}$$ of the set $$A'$$ if defined as $$\chi_{A'}(a) = 1$$ if $$a \in A'$$ and $$\chi_(A')(a) = 0$$ otherwise.
 
-_Proof_: Using the fact that for all $a \leq 0$ $\text{lim}_{x \rightarrow 0} e^{a/x} = 1$ if a = 0 ($e^{0/x}=e^0=1$), and 0 otherwise:
+_Proof_: Using the fact that for all $$a \leq 0$$ $$\text{lim}_{x \rightarrow 0} e^{a/x} = 1$$ if a = 0 ($$e^{0/x}=e^0=1$$), and 0 otherwise:
 
 ![image](https://marti-1.s3.amazonaws.com/notes/simulated_annealing/exp_minus_1_div_x.png)
 
@@ -150,7 +150,7 @@ and the following facts:
 
 **(1)**
 
-$e^{\frac{(f_{opt}-f_{opt})}{c}} = 1$
+$$e^{\frac{(f_{opt}-f_{opt})}{c}} = 1$$
 
 **(2)**
 
@@ -165,7 +165,7 @@ $$
 
 we obtain:
 
-<span class="marginnote">$f_{opt} = 0$</span>
+<span class="marginnote">$$f_{opt} = 0$$</span>
 
 $$
 \begin{aligned}
@@ -175,7 +175,7 @@ $$
 $$
 
 
-<span class="marginnote">$\chi(S)(i) \rightarrow 1$ if $i \in S$, 0 otherwise</span>
+<span class="marginnote">$$\chi(S)(i) \rightarrow 1$$ if $$i \in S$$, 0 otherwise</span>
 
 $$
 \begin{aligned}
@@ -185,10 +185,10 @@ $$
 \end{aligned}
 $$
 
-<span class="marginnote">$S \backslash S_{opt}$ -- all non-optimal states</span>
+<span class="marginnote">$$S \backslash S_{opt}$$ -- all non-optimal states</span>
 
 
-Thus given conjecture 2.1 and corollary 2.1, we can say that simulated annealing reaches a uniform distribution of optimal solutions as temperature $c$ goes to 0 and number of steps taken at every temperature point approaches infinity:
+Thus given conjecture 2.1 and corollary 2.1, we can say that simulated annealing reaches a uniform distribution of optimal solutions as temperature $$c$$ goes to 0 and number of steps taken at every temperature point approaches infinity:
 
 $$
 \text{lim}_{c \rightarrow 0} \text{lim}_{k \rightarrow \infty} P_c\{X(k) = i\} = \text{lim}_{c \rightarrow 0} q_i(c) = q^*_i
@@ -202,7 +202,7 @@ In the previous section it was shown that if one would generate an infinate homo
 
 Instead of an infinate amount of transitions, we could generate a finate sequence of transtions at ever temperature, combine that sequence into one inhomogenous sequence and see whether it could approximate the $q^*$ arbitrarily closely. 
 
-**Definition 3.11** Let $c_{l}^{'}$ denote the value of the control parameter of the $l^{th}$ homogenous Markov chain, $L$ denote the length of the homogeneous Markov chains, and $c_k$ denote the value of the control parameter at the $k^{th}$ trial. Then we define the sequence $\{c_k\}$, $k=1,\dots$ as follows:
+**Definition 3.11** Let $$c_{l}^{'}$$ denote the value of the control parameter of the $l^{th}$ homogenous Markov chain, $$L$$ denote the length of the homogeneous Markov chains, and $$c_k$$ denote the value of the control parameter at the $k^{th}$ trial. Then we define the sequence $$\{c_k\}$$, $$k=1,\dots$$ as follows:
 
 $$
 c_k = c_l^{'}, ~ lL < k \leq (l+1)L
@@ -211,28 +211,28 @@ $$
 _NOTE: I am not sure about the "k" parameter, from the above it seems like it would be in the range of `(lL, (l+1)L]`. In the book it further mentions that "[it] is taken to be piecewise constant". So it doesn't change when sampling at a certain temperature?_
 
 
-Our goal is to generate such inhomogeneus Markov chain that it would approximate $q^*$ to an arbitrary degree:
+Our goal is to generate such inhomogeneus Markov chain that it would approximate $$q^*$$ to an arbitrary degree:
 
 $$
 \left \| a(k) - q^* \right \| < \epsilon
 $$
 
-where $a_i(k) = P(X(k) = i)$ (probablity disribution of outcomes at the k-th trial).
+where $$a_i(k) = P(X(k) = i)$$ (probablity disribution of outcomes at the k-th trial).
 
-According to **Theorem 3.6**, if the temperature sequence $$\{ c_l^{'} \}$$ satisfies the inequality below, then the Markov chain converges to $q^{*}$:
+According to **Theorem 3.6**, if the temperature sequence $$\{ c_l^{'} \}$$ satisfies the inequality below, then the Markov chain converges to $$q^{*}$$:
 
 $$
 c_l^{'} \geq \frac{(L+1)\delta}{log(l+2)}, ~ l = 0, 1,\dots,
 $$
 
 where 
-$$\delta = \text{max}_{i,j \in S} \{ f(j) - f(i) | j \in S_i \}$$ (maximum cost difference over all neighborhoods) and $L$ is chosen as the maximum of the minimum number of transitions required to reach an $i_{opt}$ from $j$, for all $j \in S$.
+$$\delta = \text{max}_{i,j \in S} \{ f(j) - f(i) | j \in S_i \}$$ (maximum cost difference over all neighborhoods) and $L$ is chosen as the maximum of the minimum number of transitions required to reach an $$i_{opt}$$ from $$j$$, for all $$j \in S$$.
 
-_NOTE: How is the $\delta$ computed? Do you have to find a maximum diff of all the states or just the immediate neighborhood of current state?_
+_NOTE: How is the $$\delta$$ computed? Do you have to find a maximum diff of all the states or just the immediate neighborhood of current state?_
 
 <span class="marginnote">L -- minimum amount of permutations in order to get to the goal state from furthest state</span>
 
-We can estimate the complexity of the transitions $k$ required for a problem based on the following equation:
+We can estimate the complexity of the transitions $$k$$ required for a problem based on the following equation:
 
 $$
 k = O((\frac{1}{\epsilon})^{\frac{1}{\text{min(a,b)}}})
@@ -248,9 +248,9 @@ with $$\hat{f} = \text{min}_{i \in S \backslash S_{opt}} f(i)$$ (minimum cost of
 
 ### Example: TSP problem
 
-Let's assume we have a 2-change neighborhood structure. Then we have $L = n - 2$ (min number of permutations of any route in order to get the most optimal route), where $n$ is a number of cities, and $\Theta = (n-1)(n-2)$ (size of the neighborhood -- $\|S_i\|$).
+Let's assume we have a 2-change neighborhood structure. Then we have $$L = n - 2$$ (min number of permutations of any route in order to get the most optimal route), where $n$ is a number of cities, and $\Theta = (n-1)(n-2)$ (size of the neighborhood -- $\|S_i\|$).
 
-For $a$ we have:
+For $$a$$ we have:
 
 $$
 \begin{aligned}
@@ -260,7 +260,7 @@ a &= \frac{1}{(L+1)\Theta^{L+1}} \\
 \end{aligned}
 $$
 
-and $b$:
+and $$b$$:
 
 <span class="marginnote">$\frac{\hat{f} - f_{opt}}{\text{max}_{i,j \in S} \{ f(j) - f(i) | j \in S_i \}} < 0$</span>
 
@@ -286,11 +286,11 @@ $$
 k = O(n^{n^{2n-1}})
 $$
 
-whereas $\|S\| = O((n-1)!)$:
+whereas $$\|S\| = O((n-1)!)$$:
 
 ![image](https://marti-1.s3.amazonaws.com/notes/simulated_annealing/k_vs_total_states.png)
 
-The plot for $k$ terminates at n=2, because afterwards it just shoots to infinity. Thus it is far more efficient to just enumerate all of the states, then solve it using simulated annealing.
+The plot for $$k$$ terminates at n=2, because afterwards it just shoots to infinity. Thus it is far more efficient to just enumerate all of the states, then solve it using simulated annealing.
 
 ### Example: n-queens
 
@@ -305,20 +305,20 @@ $$
 \left \| \mathbf{a}(L_k,c_k) - \mathbf{q}(c_k) \right \| < \epsilon ~ (4.1)
 $$
 
-where $L_k$ denotes the length of the $k^{th}$ Markov chain. Then _quasi equilibrium_ is achieved if $\mathbf{a}(L_k, c_k)$ is "sufficiently close" to $\mathbf{q_k(c_k)}$, the stationary distribution at $c_k$ for some specified positive value of $\epsilon$.
+where $$L_k$$ denotes the length of the $$k^{th}$$ Markov chain. Then _quasi equilibrium_ is achieved if $$\mathbf{a}(L_k, c_k)$$ is "sufficiently close" to $\mathbf{q_k(c_k)}$, the stationary distribution at $c_k$ for some specified positive value of $\epsilon$.
 
 The quasi equilibrium requires careful design of a cooling schedule. The idea behind the cooling schedules is to start with some $c_0$ that would be guaranteed to generate a stationary distribution (e.g. uniform over all states) and then decrease $c_k$ with small decrements and to generate a fixed length Markov chain that would restore the quasi equilibrium at the end. Finally, a _final value_ of $c_k$ has to be specified in order for the search to terminate. To summarize, the cooling schedule consists of:
 
-* an initial value -- $c_0$;
-* a decrement function of $c_k$;
-* a final value of $c_k$;
-* $L_k$ -- a finate number of transitions at each value of the temp parameter.
+* an initial value -- $$c_0$$;
+* a decrement function of $$c_k$$;
+* a final value of $$c_k$$;
+* $$L_k$$ -- a finate number of transitions at each value of the temp parameter.
 
 An example cooling schedule proposed by Kirkpatrick, Gelatt & Vecchi ([1983?](http://www2.stat.duke.edu/~scs/Courses/Stat376/Papers/TemperAnneal/KirkpatrickAnnealScience1983.pdf)):
 
 ### Initial value $c_0$
 
-You start with a small $c_0$ and keep increasing by a constant factor > 1, until the probability computed from the samples is close to 1. Note, the _acceptance ratio_ is defined as:
+You start with a small $$c_0$$ and keep increasing by a constant factor > 1, until the probability computed from the samples is close to 1. Note, the _acceptance ratio_ is defined as:
 
 $$
 \chi(c) = \frac{\text{number of accepted transitions}}{\text{number of proposed transitions}}
@@ -326,13 +326,13 @@ $$
 
 ### Decrement function
 
-You can have either small $\triangle c$ or large $L_k$. In practive, small $\triangle c$ is favoured. Frequently used decrement function is given by:
+You can have either small $$\triangle c$$ or large $$L_k$$. In practive, small $$\triangle c$$ is favoured. Frequently used decrement function is given by:
 
 $$
 c_{k+1} = \alpha c_k, ~ k = 1,2,\dots
 $$
 
-where $\alpha$ is a constant smaller than but close to 1. Typically between 0.8 and 0.99.
+where $$\alpha$$ is a constant smaller than but close to 1. Typically between 0.8 and 0.99.
 
 ### Final value
 
@@ -340,7 +340,7 @@ Execution of the algorithm is terminated if the value of the cost function of th
 
 ### Length of Markov chain
 
-The number of transitions needed to achieve a quasi equilibrium comes from an intuitive argument that quasi equilibrium will be restored after acceptance of at least some fixed number of transitions. However, since transitions are accepted with decreasing probability, one could obtain $L_k \rightarrow \infty$ for $c_k \rightarrow 0$. Thus it needs to be bounded by some constant $\bar{L}$.
+The number of transitions needed to achieve a quasi equilibrium comes from an intuitive argument that quasi equilibrium will be restored after acceptance of at least some fixed number of transitions. However, since transitions are accepted with decreasing probability, one could obtain $$L_k \rightarrow \infty$$ for $$c_k \rightarrow 0$$. Thus it needs to be bounded by some constant $$\bar{L}$$.
 
 
 ## Resources
@@ -355,19 +355,19 @@ The number of transitions needed to achieve a quasi equilibrium comes from an in
 
 **Update 2022-02-17**: A Polynomial-Time Cooling Schedule
 
-**Postulate 2.1**. Let $R_1$ and $R_2$ be two regions of the value of the cost function, where $R_1$ denotes the region of a few standard deviations $\sigma_{\infty}$ around $\left \langle f \right \rangle_{\infty}$ and $R_2$ the region close to $f_{min}$. Then, for a typical combinatorial optimization problem, $\omega(f)$ is given by a normal distribution $\omega_{N}(f)$ in the region $R_1$ and by an exponential distribution $\omega_{\epsilon}(f)$ in the region $R_2$. Furthermore, we conjecture that the number of solutions in $R_1$ is much larger than the number of solutions in $R_2$.
+**Postulate 2.1**. Let $$R_1$$ and $$R_2$$ be two regions of the value of the cost function, where $$R_1$$ denotes the region of a few standard deviations $\sigma_{\infty}$ around $\left \langle f \right \rangle_{\infty}$ and $R_2$ the region close to $f_{min}$. Then, for a typical combinatorial optimization problem, $$\omega(f)$$ is given by a normal distribution $\omega_{N}(f)$ in the region $R_1$ and by an exponential distribution $$\omega_{\epsilon}(f)$$ in the region $$R_2$$. Furthermore, we conjecture that the number of solutions in $R_1$ is much larger than the number of solutions in $$R_2$$.
 
 Here:
-* $\omega(f)$ is a density funciton of fitness values;
-* $\text{lim}_{c \rightarrow \infty} \left \langle f \right \rangle_c \triangleq \left \langle f \right \rangle\_{\infty} = \frac{1}{\|S\|}\sum\_{i \in S} f(i)$
-* $\text{lim}_{c \rightarrow \infty} \sigma^2_c \triangleq \sigma^2\_{\infty} = \frac{1}{\|S\|}\sum\_{i \in S} (f(i) - \left \langle f \right \rangle\_{\infty})^2$
+* $$\omega(f)$$ is a density funciton of fitness values;
+* $$\text{lim}_{c \rightarrow \infty} \left \langle f \right \rangle_c \triangleq \left \langle f \right \rangle\_{\infty} = \frac{1}{\|S\|}\sum\_{i \in S} f(i)$$
+* $$\text{lim}_{c \rightarrow \infty} \sigma^2_c \triangleq \sigma^2\_{\infty} = \frac{1}{\|S\|}\sum\_{i \in S} (f(i) - \left \langle f \right \rangle\_{\infty})^2$$
 
-Figure below depicts how the transition from $R_1$ to $R_2$ happens as fitness approaches $f_{min}$. The blue bars show the density of fitnesses of states explored at $c_k$, the red line depicts normal distribution with $\sigma = \sigma\_{\infty}$ and $\mu = \left \langle f \right \rangle_{\infty}$, the gold line depicts an exponential function defined as $e^{-f\gamma}$ where $f$ is all possible fitness values and $gamma$ is computed at $\frac{1}{2c_k}$ in order to satisfy the $0 < \gamma < c^{-1}$ constraint (_NOTE_ this comes straight from the book, not sure why $\gamma$ should be in this range, but for depiction purposes it doesn't matter too much since all we care is to show that an exponential distribution is approached the closer we get to the optimal solution).
+Figure below depicts how the transition from $$R_1$$ to $$R_2$$ happens as fitness approaches $$f_{min}$$. The blue bars show the density of fitnesses of states explored at $$c_k$$, the red line depicts normal distribution with $$\sigma = \sigma\_{\infty}$$ and $$\mu = \left \langle f \right \rangle_{\infty}$$, the gold line depicts an exponential function defined as $$e^{-f\gamma}$$ where $$f$$ is all possible fitness values and $$gamma$$ is computed at $$\frac{1}{2c_k}$$ in order to satisfy the $$0 < \gamma < c^{-1}$$ constraint (_NOTE_ this comes straight from the book, not sure why $$\gamma$$ should be in this range, but for depiction purposes it doesn't matter too much since all we care is to show that an exponential distribution is approached the closer we get to the optimal solution).
 
 
 ![image](https://marti-1.s3.amazonaws.com/notes/simulated_annealing/postulate2_1.gif)
 
-### Initial value $c_0$
+### Initial value $$c_0$$
 
 The acceptance ratio is defined as:
 
@@ -375,7 +375,7 @@ $$
 \chi(c) = \frac{\text{accepted}}{\text{proposed}}
 $$
 
-All proposals that satisfy $f(i) >= f(j)$ are accepted, let's call them $m_1$. The rest ($f(i) < f(j)$) defined as $m_2$ are accepted with probability $e^{-\frac{\Delta \bar{f}^+}{c}}$, where $\Delta \bar{f}^+$ is average cost difference of proposals with higher then current solution cost. Thus we can approximate the acceptance ratio by:
+All proposals that satisfy $$f(i) >= f(j)$$ are accepted, let's call them $$m_1$$. The rest ($$f(i) < f(j)$$) defined as $m_2$ are accepted with probability $e^{-\frac{\Delta \bar{f}^+}{c}}$, where $\Delta \bar{f}^+$ is average cost difference of proposals with higher then current solution cost. Thus we can approximate the acceptance ratio by:
 
 $$
 \chi(c) = \frac{m_1 + m_2*e^{-\frac{\Delta \bar{f}^+}{c}}}{m_1 + m_2}

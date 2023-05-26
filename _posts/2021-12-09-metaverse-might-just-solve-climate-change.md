@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Metaverse Might Just Solve Climate Change
 category: Economics
 ---
