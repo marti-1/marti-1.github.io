@@ -3,8 +3,21 @@
 
 @import "{{ site.theme }}";
 
+hr {
+    margin-bottom: 15px;
+}
+
 img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.marginnote {
+    position: absolute;
+    left: 77%;
+    right: 2%;
+    max-width: 300px;
+    font-size: small;
+    line-height: 20px;
 }
